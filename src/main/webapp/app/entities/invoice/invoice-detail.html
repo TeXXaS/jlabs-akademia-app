@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Invoice</span> {{vm.invoice.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Number</span></dt>
+        <dd>
+            <span>{{vm.invoice.number}}</span>
+        </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{vm.invoice.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Company Name</span></dt>
+        <dd>
+            <span>{{vm.invoice.companyName}}</span>
+        </dd>
+        <dt><span>Nip</span></dt>
+        <dd>
+            <span>{{vm.invoice.nip}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="invoice-detail.edit({id:vm.invoice.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>
