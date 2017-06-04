@@ -5,10 +5,14 @@ node {
         checkout scm
     }
     stage('npm/gulp install') {
-        sh "./gradlew npmInstall -PnodeInstall --no-daemon"
+        sh "npm install"
         sh "./gradlew gulp_test -PnodeInstall --no-daemon"
     }
 	stage('build_Project') {
 	    sh './gradlew clean build --info'
 	}
+
+        sh "npm install --ignore-scripts"
+	sh "bower install"
+
 }
