@@ -1,3 +1,4 @@
+checkout scm
 stage 'build_Project'
 node{
   if(isUnix()){
