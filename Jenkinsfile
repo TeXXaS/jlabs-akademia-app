@@ -14,17 +14,14 @@ node {
 	}
 
 	stage('deploy') {
-		wrap([$class: 'AmazonAwsCliBuildWrapper', defaultRegion: 'eu-west-1']) {
-		
-			def destinationWarFile = "app-${env.BUILD_NUMBER}.war"
-			def versionLabel = "app#${env.BUILD_NUMBER}"
-			def description = "${env.BUILD_URL}"
+		def destinationWarFile = "app-${env.BUILD_NUMBER}.war"
+		def versionLabel = "app#${env.BUILD_NUMBER}"
+		def description = "${env.BUILD_URL}"
 
-			sh """\
-			  aws s3 cp build/libs/app-0.0.1-SNAPSHOT.war s3://texxas-jenkins-backup/builds/$destinationWarFile
-			  aws elasticbeanstalk create-application-version --source-bundle S3Bucket=texxas-jenkins-backup,S3Key=builds/$destinationWarFile --application-name app --version-label $versionLabel --description \\\"$description\\\"
-			  aws elasticbeanstalk update-environment --environment-name game-of-life-prod --application-name app --version-label $versionLabel --description \\\"$description\\\"
-			"""
-		}
+		sh """\
+		  aws s3 cp build/libs/app-0.0.1-SNAPSHOT.war s3://texxas-jenkins-backup/builds/$destinationWarFile
+		  aws elasticbeanstalk create-application-version --source-bundle S3Bucket=texxas-jenkins-backup,S3Key=builds/$destinationWarFile --application-name app --version-label $versionLabel --description \\\"$description\\\"
+		  aws elasticbeanstalk update-environment --environment-name game-of-life-prod --application-name app --version-label $versionLabel --description \\\"$description\\\"
+		"""
 	}
 }
